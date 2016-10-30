@@ -37,6 +37,7 @@ group :development, :test do
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'capybara'
+  gem 'database_cleaner'
 end
 
 
