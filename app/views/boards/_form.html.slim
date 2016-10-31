@@ -8,9 +8,9 @@
         - @board.errors.full_messages.each do |message|
           li
             = message
-  .field
+  .field.form-group
     = f.label :title
     br
-    = f.text_field :title
+    = f.text_field :title, class: 'form-control'
   .actions
-    = f.submit
+    = f.submit class: 'btn btn-primary'

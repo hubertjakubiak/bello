@@ -1,16 +1,31 @@
-p#notice
-  = notice
-- @boards.each do |board|
-  h2
-    = link_to board.title, board
-  - board.lists.each do |list|
-    p
-      = link_to list.title, board_list_path(board, list)
-    p
-      = link_to "New Card", new_list_card_path(list)
-    ul
-      - list.cards.each do |card|
-        li
-          = card.body
-br
-= link_to 'New Board', new_board_path
+.row
+  - @boards.each do |board|
+    .col-md-4
+      h3
+        = board.title
+      .btn-toolbar
+        = link_to 'Edit Board', edit_board_path(board), class: 'btn btn-default'
+        = link_to 'Delete', board_path(board), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger'
+        = link_to 'Create New List', new_board_list_path(board), class: 'btn btn-default'
+      br
+      - board.lists.each do |list|
+        .well
+          strong
+            = list.title
+          p 
+            = link_to 'Edit List', edit_list_path(list)
+            |  | 
+            = link_to 'Delete', list_path(list), method: :delete, data: {confirm: 'Are you sure?'}
+          ul
+          - list.cards.each do |card|
+            li
+              = card.body
+              |  
+              = link_to 'Edit', edit_list_card_path(list, card)
+              |  | 
+              = link_to 'Delete', list_card_path(list, card), method: :delete, data: {confirm: 'Are you sure?'} 
+          br
+          = link_to "Add New Card", new_list_card_path(list), class: 'btn btn-success btn-sm'
+.row
+  .col-md-12
+    = link_to 'Add New Board', new_board_path, class: 'btn btn-primary'
