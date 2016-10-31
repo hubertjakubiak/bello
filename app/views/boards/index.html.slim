@@ -1,0 +1,16 @@
+p#notice
+  = notice
+- @boards.each do |board|
+  h2
+    = link_to board.title, board
+  - board.lists.each do |list|
+    p
+      = link_to list.title, board_list_path(board, list)
+    p
+      = link_to "New Card", new_list_card_path(list)
+    ul
+      - list.cards.each do |card|
+        li
+          = card.body
+br
+= link_to 'New Board', new_board_path

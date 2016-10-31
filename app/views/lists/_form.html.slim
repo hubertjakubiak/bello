@@ -1,0 +1,16 @@
+= form_for([@board, @list]) do |f|
+  - if @list.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@list.errors.count, "error")
+        |  prohibited this board from being saved:
+      ul
+        - @list.errors.full_messages.each do |message|
+          li
+            = message
+  .field
+    = f.label :title
+    br
+    = f.text_field :title
+  .actions
+    = f.submit

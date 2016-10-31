@@ -1,0 +1,11 @@
+p#notice
+  = notice
+p
+  strong
+    | Title:
+  = @board.title
+= @board_lists.inspect
+= link_to 'Create new list', new_board_list_path(@board)
+= link_to 'Edit', edit_board_path(@board)
+|  | 
+= link_to 'Back', boards_path
