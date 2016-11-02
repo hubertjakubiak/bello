@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title
+      | Bello
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    .container
+      .col-md-12
+      .page-header
+        h1
+          | Bello
+          small  Manage Your Tasks
+      h2 All Boards
+      - flash.each do |key, value|
+        div class=("alert alert-#{key}") 
+          = value
+          a.close data-dismiss="alert" href="#"  ×
+      = yield
+      br

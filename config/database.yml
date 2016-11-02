@@ -17,6 +17,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  template: template0
   host: localhost
   username: bello
   password: <%= ENV["BELLO_DATABASE_PASSWORD"] %>
