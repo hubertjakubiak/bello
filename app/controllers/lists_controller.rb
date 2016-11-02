@@ -2,20 +2,15 @@ class ListsController < ApplicationController
     
   before_action :set_list, only: [:show, :destroy, :edit, :update]
   def new
-    @board = Board.find(params[:board_id])
-    @list = List.new
+    @list = board.lists.new
   end
   
   def create
-    @list = List.new(list_params)
-    @board = Board.find(params[:board_id])
-    @list.board = @board
-    respond_to do |format|
-      if @list.save
-        format.html { redirect_to root_path, notice: 'List was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    @list = board.lists.new(list_params)
+    if @list.save
+      redirect_to root_path, notice: 'List was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -45,6 +40,10 @@ end
   end
     
   private
+
+  def board
+    @board ||= Board.find(params[:board_id])
+  end
     
   def list_params
     params.require(:list).permit(:title)
