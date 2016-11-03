@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem "haml-rails", "~> 0.9"
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
