@@ -1,3 +1,1 @@
-class Board < ActiveRecord::Base
-
-end
+class Board < ActiveRecord::Base; end
