@@ -1,13 +1,5 @@
 = form_for(@board) do |f|
-  - if @board.errors.any?
-    .error_explanation
-      h2
-        = pluralize(@board.errors.count, "error")
-        | prohibited this board from being saved:
-      ul
-        - @board.errors.full_messages.each do |message|
-          li
-            = message
+  = render partial: 'shared/errors', locals: {object: @board}
   .field.form-group
     = f.label :title
     br
