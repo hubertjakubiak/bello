@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :authenticate
+  
   def new
   end
 
@@ -6,9 +8,9 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       session[:user_id] = user.id
-      redirect_to '/'
+      redirect_to root_path
     else
-      redirect_to '/signup'
+      redirect_to signup_path
     end
   end
 
