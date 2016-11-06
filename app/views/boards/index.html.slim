@@ -6,3 +6,9 @@ h1 Boards
     = link_to("Delete", board_path(board), method: :delete, data: {confirm: "Are you sure?"})
 
 = link_to("New Board", new_board_path)
+br
+- if current_user
+  | Signed in as #{current_user.name} | #{link_to "Logout", '/logout', method: :delete}
+- else
+  = link_to 'Login', '/login'
+  = link_to 'Signup', '/signup'
