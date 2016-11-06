@@ -20,6 +20,24 @@ ActiveRecord::Schema.define(version: 20161106084422) do
     t.string "title"
   end
 
+  create_table "cards", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "list_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "cards", ["list_id"], name: "index_cards_on_list_id", using: :btree
+
+  create_table "lists", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "board_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "lists", ["board_id"], name: "index_lists_on_board_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -28,4 +46,5 @@ ActiveRecord::Schema.define(version: 20161106084422) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "cards", "lists"
 end
