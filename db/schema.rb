@@ -11,32 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106084422) do
+ActiveRecord::Schema.define(version: 20161108202043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "boards", force: :cascade do |t|
-    t.string "title"
+    t.string  "title"
+    t.integer "owner_id"
   end
-
-  create_table "cards", force: :cascade do |t|
-    t.text     "body"
-    t.integer  "list_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "cards", ["list_id"], name: "index_cards_on_list_id", using: :btree
 
   create_table "lists", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "board_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string  "title"
+    t.integer "user_id"
+    t.integer "board_id"
   end
 
   add_index "lists", ["board_id"], name: "index_lists_on_board_id", using: :btree
+  add_index "lists", ["user_id"], name: "index_lists_on_user_id", using: :btree
+
+  create_table "members", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "board_id"
+  end
+
+  add_index "members", ["board_id"], name: "index_members_on_board_id", using: :btree
+  add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
+
+  create_table "tasks", force: :cascade do |t|
+    t.text    "body"
+    t.integer "list_id"
+    t.integer "user_id"
+  end
+
+  add_index "tasks", ["list_id"], name: "index_tasks_on_list_id", using: :btree
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -46,5 +55,10 @@ ActiveRecord::Schema.define(version: 20161106084422) do
     t.datetime "updated_at",      null: false
   end
 
-  add_foreign_key "cards", "lists"
+  add_foreign_key "lists", "boards"
+  add_foreign_key "lists", "users"
+  add_foreign_key "members", "boards"
+  add_foreign_key "members", "users"
+  add_foreign_key "tasks", "lists"
+  add_foreign_key "tasks", "users"
 end
