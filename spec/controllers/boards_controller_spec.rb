@@ -1,13 +1,14 @@
 require "rails_helper"
 
-RSpec.describe BoardsController do
+describe BoardsController do
 
-  before { sign_in }
+  before {sign_in}
 
-  let(:board) { create(:board)}
   context "GET index" do
+    let(:board) {create(:board)}
+    let(:call) {get :index}
 
-    before {get :index}
+    before {call}
 
     it "assigns @boards" do       
       expect(assigns(:boards)).to eq([board])
@@ -26,35 +27,37 @@ RSpec.describe BoardsController do
     end
   end
 
-  let(:board) {create(:board)}
   describe "GET edit" do
+    let(:board) {create(:board)}
     it "renders the edit template" do
       get :edit, id: board.id
       expect(response).to render_template(:edit)
     end
   end
 
-  let(:board) {create(:board)}
   describe "DELETE destroy" do
+    let!(:board) {create(:board)}
+    let(:call) {delete :destroy, id: board.id}
     it "delete existing board" do
-      board
-      expect {delete :destroy, id: board.id}.to change {Board.count}.by(-1)
+      expect {call}.to change {Board.count}.by(-1)
     end
   end
 
-  let(:board) {create(:board)}
-  let(:attr) {{id: board.id, title: 'Title updated'}}
   describe "PUT update" do
+    let(:board) {create(:board)}
+    let(:params) {{id: board.id, title: 'Title updated'}}
+    let(:call) {put :update, id: board.id, board: params}
     it "updates title" do
-      expect {put :update, id: board.id, board: attr}.to change {board.reload.title}.to('Title updated')
+      expect {call}.to change {board.reload.title}.to('Title updated')
     end
   end
 
-  let(:board) {create(:board)}
   describe "POST create" do
+    let(:board) {create(:board)}
+    let(:params) {{board: { title: 'New title'}}}
+    let(:call) {post :create, params}
     it "create new board" do
-      params = {board: { title: 'New title'}}
-      expect {post :create, params}.to change {Board.count}.by(1)
+      expect {call}.to change {Board.count}.by(1)
     end
   end
 end
