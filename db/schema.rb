@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161108202043) do
+ActiveRecord::Schema.define(version: 20161109062650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,13 +30,13 @@ ActiveRecord::Schema.define(version: 20161108202043) do
   add_index "lists", ["board_id"], name: "index_lists_on_board_id", using: :btree
   add_index "lists", ["user_id"], name: "index_lists_on_user_id", using: :btree
 
-  create_table "members", force: :cascade do |t|
+  create_table "memberships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "board_id"
   end
 
-  add_index "members", ["board_id"], name: "index_members_on_board_id", using: :btree
-  add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
+  add_index "memberships", ["board_id"], name: "index_memberships_on_board_id", using: :btree
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
     t.text    "body"
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 20161108202043) do
 
   add_foreign_key "lists", "boards"
   add_foreign_key "lists", "users"
-  add_foreign_key "members", "boards"
-  add_foreign_key "members", "users"
+  add_foreign_key "memberships", "boards"
+  add_foreign_key "memberships", "users"
   add_foreign_key "tasks", "lists"
   add_foreign_key "tasks", "users"
 end
