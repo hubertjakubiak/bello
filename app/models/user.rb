@@ -6,5 +6,6 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :boards, through: :memberships
 
-  validates_presence_of :name, :email
+  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true
 end
