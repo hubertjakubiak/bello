@@ -1,11 +1,10 @@
 require "rails_helper"
 
-describe Board do
+describe List do
   describe 'associations' do
-    it {is_expected.to belong_to :owner}
-    it {is_expected.to have_many :lists}
-    it {is_expected.to have_many :memberships}
-    it {is_expected.to have_many(:members).through(:memberships)}
+    it {is_expected.to belong_to :board}
+    it {is_expected.to belong_to :user}
+    it {is_expected.to have_many :tasks}
   end
 
   describe 'validations' do

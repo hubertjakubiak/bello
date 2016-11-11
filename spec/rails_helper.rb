@@ -11,6 +11,17 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    # Choose a test framework:
+    with.test_framework :rspec
+    with.library :active_record
+    with.library :active_model
+    with.library :action_controller
+    with.library :rails
+  end
+end
+
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include ControllerHelpers, type: :controller
