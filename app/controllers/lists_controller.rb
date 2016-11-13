@@ -1,10 +1,10 @@
 class ListsController < ApplicationController
   def new
-    @list = board.lists.build
+    @list = board.lists.new
   end
 
   def create
-    @list = board.lists.build(list_params)
+    @list = board.lists.new(list_params)
     if @list.save
       redirect_to root_path, notice: 'List was successfully created.'
     else
