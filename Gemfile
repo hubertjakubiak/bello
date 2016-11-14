@@ -13,6 +13,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'slim'
 gem 'bcrypt', '~> 3.1.7'
 gem 'faker'
+gem "pundit"
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5', '>= 3.5.2'

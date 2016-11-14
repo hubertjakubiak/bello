@@ -53,8 +53,8 @@ describe BoardsController do
   end
 
   describe "POST create" do
-    let(:board) {create(:board)}
-    let(:params) {{board: { title: 'New title'}}}
+    let!(:user) {create(:user)}
+    let(:params) {{board: { title: 'New title 123', owner_id: user.id}}}
     let(:call) {post :create, params}
     it "create new board" do
       expect {call}.to change {Board.count}.by(1)
