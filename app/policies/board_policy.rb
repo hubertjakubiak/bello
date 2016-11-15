@@ -1,10 +1,4 @@
 class BoardPolicy < ApplicationPolicy
-  class Scope < Scope
-    def resolve
-      scope.where(owner: user)
-    end
-  end
-
   def edit?
     is_owner?
   end

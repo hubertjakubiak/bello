@@ -16,7 +16,6 @@ class ListsController < ApplicationController
 
   def edit
     authorize list
-    list
     board
   end
 

@@ -1,6 +1,6 @@
 class BoardsController < ApplicationController
   def index
-    @boards = policy_scope(Board).includes(:lists)
+    @boards = current_user.ownerships.includes(:lists)
   end
 
   def new
@@ -8,8 +8,7 @@ class BoardsController < ApplicationController
   end
 
   def create
-    @board = Board.new(board_params)
-    @board.owner = current_user
+    @board = Board.new(board_params.merge!(owner: current_user))
     if @board.save
       redirect_to root_path, notice: 'Board was successfully created.'
     else
@@ -19,7 +18,6 @@ class BoardsController < ApplicationController
 
   def edit
     authorize board
-    board
   end
 
   def update

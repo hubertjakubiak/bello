@@ -3,9 +3,10 @@ require "rails_helper"
 describe BoardsController do
 
   before {sign_in}
+  let(:user) {create(:user, id: 1)}
 
   context "GET index" do
-    let(:board) {create(:board)}
+    let(:board) {create(:board, owner: user)}
     let(:call) {get :index}
 
     before {call}
@@ -27,8 +28,8 @@ describe BoardsController do
     end
   end
 
-  describe "GET edit" do
-    let(:board) {create(:board)}
+  describe "GET edit" do 
+    let(:board) {create(:board, owner: user)}
     it "renders the edit template" do
       get :edit, id: board.id
       expect(response).to render_template(:edit)
@@ -36,7 +37,7 @@ describe BoardsController do
   end
 
   describe "DELETE destroy" do
-    let!(:board) {create(:board)}
+    let!(:board) {create(:board, owner: user)}
     let(:call) {delete :destroy, id: board.id}
     it "delete existing board" do
       expect {call}.to change {Board.count}.by(-1)
@@ -44,7 +45,7 @@ describe BoardsController do
   end
 
   describe "PUT update" do
-    let(:board) {create(:board)}
+    let(:board) {create(:board, owner: user)}
     let(:params) {{id: board.id, title: 'Title updated'}}
     let(:call) {put :update, id: board.id, board: params}
     it "updates title" do

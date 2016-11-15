@@ -3,7 +3,8 @@ require "rails_helper"
 describe ListsController do
 
   before {sign_in}
-  let(:board) {create(:board)}
+  let(:user) {create(:user, id: 1)}
+  let(:board) {create(:board, owner: user)}
   let(:list) {create(:list, board: board)}
 
   describe "GET new" do 
