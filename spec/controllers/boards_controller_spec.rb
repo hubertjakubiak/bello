@@ -4,15 +4,14 @@ describe BoardsController do
 
   before {sign_in}
   let(:user) {create(:user, id: 1)}
-
-  context "GET index" do
-    let(:board) {create(:board, owner: user)}
+  let(:board) {create(:board, owner: user)}
+  context "GET index" do 
     let(:call) {get :index}
 
     before {call}
 
     it "assigns @boards" do       
-      expect(assigns(:boards)).to eq([board])
+      expect(assigns(:own_boards)).to eq([board])
     end
 
     it "renders the index template" do
@@ -29,7 +28,6 @@ describe BoardsController do
   end
 
   describe "GET edit" do 
-    let(:board) {create(:board, owner: user)}
     it "renders the edit template" do
       get :edit, id: board.id
       expect(response).to render_template(:edit)
@@ -45,7 +43,6 @@ describe BoardsController do
   end
 
   describe "PUT update" do
-    let(:board) {create(:board, owner: user)}
     let(:params) {{id: board.id, title: 'Title updated'}}
     let(:call) {put :update, id: board.id, board: params}
     it "updates title" do
@@ -55,10 +52,25 @@ describe BoardsController do
 
   describe "POST create" do
     let!(:user) {create(:user)}
-    let(:params) {{board: { title: 'New title 123', owner_id: user.id}}}
+    let(:params) {{board: { title: 'New title 123'}}}
     let(:call) {post :create, params}
-    it "create new board" do
+
+    it "creates new board" do
       expect {call}.to change {Board.count}.by(1)
+    end
+  end
+
+  describe "POST create" do
+    #let!(:user) {create(:user)}
+    #let(:params) {{board: { title: 'New title 123'}}}
+    # let(:call) {post :create, params}
+    
+    it "assigns owner" do
+      # post :create, params
+      # expect(Board.last.owner).to eq(user)
+
+      board_params = FactoryGirl.attributes_for(:board)
+      expect { post :create, board: board_params }.to change(Board, :count).by(1) 
     end
   end
 end
