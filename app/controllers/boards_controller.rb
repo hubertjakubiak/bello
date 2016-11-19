@@ -1,7 +1,7 @@
 class BoardsController < ApplicationController
   def index
     @own_boards = current_user.ownerships.includes(:lists)
-    @membership_boards = current_user.memberships.includes(:lists)
+    @membership_boards = current_user.membership_boards.includes(:lists)
     #Board.includes(:memberships).where('memberships.user_id = ? OR owner_id = ?', 1, 1).references(:memberships)
   end
 
@@ -10,7 +10,8 @@ class BoardsController < ApplicationController
   end
 
   def create
-    @board = Board.new(board_params.merge!(owner_id: current_user.id))
+    @board = Board.new(board_params)
+    @board.owner = current_user
     if @board.save
       redirect_to root_path, notice: 'Board was successfully created.'
     else

@@ -3,8 +3,9 @@ require "rails_helper"
 describe BoardsController do
 
   before {sign_in}
-  let(:user) {create(:user, id: 1)}
+  let(:user) {current_user}
   let(:board) {create(:board, owner: user)}
+  
   context "GET index" do 
     let(:call) {get :index}
 
@@ -51,7 +52,6 @@ describe BoardsController do
   end
 
   describe "POST create" do
-    let!(:user) {create(:user)}
     let(:params) {{board: { title: 'New title 123'}}}
     let(:call) {post :create, params}
 
@@ -61,16 +61,12 @@ describe BoardsController do
   end
 
   describe "POST create" do
-    #let!(:user) {create(:user)}
-    #let(:params) {{board: { title: 'New title 123'}}}
-    # let(:call) {post :create, params}
+    let(:params) {{board: { title: 'New title 123'}}}
+    let(:call) {post :create, params}
     
     it "assigns owner" do
-      # post :create, params
-      # expect(Board.last.owner).to eq(user)
-
-      board_params = FactoryGirl.attributes_for(:board)
-      expect { post :create, board: board_params }.to change(Board, :count).by(1) 
+      call
+      expect(Board.last.owner).to eq(user)
     end
   end
 end
