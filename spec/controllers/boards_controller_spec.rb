@@ -64,9 +64,11 @@ describe BoardsController do
     let(:params) {{board: { title: 'New title 123'}}}
     let(:call) {post :create, params}
     
-    it "assigns owner" do
-      call
-      expect(Board.last.owner).to eq(user)
+    before {call}
+    context 'after call' do 
+      it "assigns owner" do    
+        expect(Board.last.owner).to eq(user)
+      end
     end
   end
 end
