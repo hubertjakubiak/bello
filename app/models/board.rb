@@ -6,4 +6,6 @@ class Board < ActiveRecord::Base
 
   validates :title, presence: true
   validates :owner, presence: true
+
+  has_many :invitations
 end

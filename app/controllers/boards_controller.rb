@@ -21,6 +21,7 @@ class BoardsController < ApplicationController
 
   def edit
     authorize board
+    @invitation = Invitation.new
   end
 
   def update

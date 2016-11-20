@@ -1,2 +1,8 @@
 h1 Edit Board
 = render 'form'
+
+= form_for @invitation , :url => invitations_path do |f|
+  = f.hidden_field :user_group_id, :value => @invitation.board_id
+  = f.label :email
+  = f.email_field :email
+  = f.submit 'Send'

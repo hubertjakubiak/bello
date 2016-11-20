@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109062650) do
+ActiveRecord::Schema.define(version: 20161120170451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 20161109062650) do
   end
 
   add_index "cards", ["list_id"], name: "index_cards_on_list_id", using: :btree
+
+  create_table "invitations", force: :cascade do |t|
+    t.string   "email"
+    t.integer  "board_id"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "lists", force: :cascade do |t|
     t.string  "title"
