@@ -1,5 +1,21 @@
 h1 Boards
-- @boards.each do |board|
+- @own_boards.each do |board|
+  p
+    = board.title
+  p
+    = link_to "Edit", edit_board_path(board) 
+    = link_to "Delete", board_path(board), method: :delete, data: {confirm: "Are you sure?"} 
+    = link_to "Create new list", new_board_list_path(board) 
+
+  div
+    - board.lists.each do |list| 
+      div
+        = list.title
+        = link_to "Edit", edit_board_list_path(board, list) 
+        = link_to "Delete", board_list_path(board, list), method: :delete, data: {confirm: "Are you sure?"}
+    end
+= @membership_boards.inspect
+- @membership_boards.each do |board|
   p
     = board.title
   p

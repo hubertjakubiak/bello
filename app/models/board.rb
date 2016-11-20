@@ -5,4 +5,5 @@ class Board < ActiveRecord::Base
   has_many :members, through: :memberships, source: :user
 
   validates :title, presence: true
+  validates :owner, presence: true
 end

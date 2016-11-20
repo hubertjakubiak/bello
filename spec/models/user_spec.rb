@@ -6,7 +6,7 @@ describe User do
     it {is_expected.to have_many :ownerships}
     it {is_expected.to have_many :tasks}
     it {is_expected.to have_many :memberships}
-    it {is_expected.to have_many(:boards).through(:memberships)}
+    it {is_expected.to have_many(:membership_boards).through(:memberships)}
   end
 
   describe 'validations' do

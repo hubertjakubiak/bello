@@ -1,6 +1,8 @@
 class BoardsController < ApplicationController
   def index
-    @boards = Board.includes(:lists)
+    @own_boards = current_user.ownerships.includes(:lists)
+    @membership_boards = current_user.membership_boards.includes(:lists)
+    #Board.includes(:memberships).where('memberships.user_id = ? OR owner_id = ?', 1, 1).references(:memberships)
   end
 
   def new
@@ -9,6 +11,7 @@ class BoardsController < ApplicationController
 
   def create
     @board = Board.new(board_params)
+    @board.owner = current_user
     if @board.save
       redirect_to root_path, notice: 'Board was successfully created.'
     else
@@ -17,10 +20,11 @@ class BoardsController < ApplicationController
   end
 
   def edit
-    board
+    authorize board
   end
 
   def update
+    authorize board
     if board.update(board_params)
       redirect_to root_path, notice: 'Board was successfully updated.'
     else
@@ -29,6 +33,7 @@ class BoardsController < ApplicationController
   end
 
   def destroy
+    authorize board
     board.destroy
     redirect_to root_path, notice: 'Board was successfully destroyed.'
   end

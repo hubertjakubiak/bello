@@ -3,15 +3,16 @@ require "rails_helper"
 describe BoardsController do
 
   before {sign_in}
-
-  context "GET index" do
-    let(:board) {create(:board)}
+  let(:user) {current_user}
+  let(:board) {create(:board, owner: user)}
+  
+  context "GET index" do 
     let(:call) {get :index}
 
     before {call}
 
     it "assigns @boards" do       
-      expect(assigns(:boards)).to eq([board])
+      expect(assigns(:own_boards)).to eq([board])
     end
 
     it "renders the index template" do
@@ -27,8 +28,7 @@ describe BoardsController do
     end
   end
 
-  describe "GET edit" do
-    let(:board) {create(:board)}
+  describe "GET edit" do 
     it "renders the edit template" do
       get :edit, id: board.id
       expect(response).to render_template(:edit)
@@ -36,7 +36,7 @@ describe BoardsController do
   end
 
   describe "DELETE destroy" do
-    let!(:board) {create(:board)}
+    let!(:board) {create(:board, owner: user)}
     let(:call) {delete :destroy, id: board.id}
     it "delete existing board" do
       expect {call}.to change {Board.count}.by(-1)
@@ -44,7 +44,6 @@ describe BoardsController do
   end
 
   describe "PUT update" do
-    let(:board) {create(:board)}
     let(:params) {{id: board.id, title: 'Title updated'}}
     let(:call) {put :update, id: board.id, board: params}
     it "updates title" do
@@ -53,11 +52,23 @@ describe BoardsController do
   end
 
   describe "POST create" do
-    let(:board) {create(:board)}
-    let(:params) {{board: { title: 'New title'}}}
+    let(:params) {{board: { title: 'New title 123'}}}
     let(:call) {post :create, params}
-    it "create new board" do
+
+    it "creates new board" do
       expect {call}.to change {Board.count}.by(1)
+    end
+  end
+
+  describe "POST create" do
+    let(:params) {{board: { title: 'New title 123'}}}
+    let(:call) {post :create, params}
+    
+    before {call}
+    context 'after call' do 
+      it "assigns owner" do    
+        expect(Board.last.owner).to eq(user)
+      end
     end
   end
 end
