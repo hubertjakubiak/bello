@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :boards, only: [:index, :new, :create, :edit, :update, :destroy] do
     resources :lists, only: [:new, :create, :edit, :update, :destroy]
   end
+  resources :invitations
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
