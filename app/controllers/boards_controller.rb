@@ -1,7 +1,7 @@
 class BoardsController < ApplicationController
   def index
     @own_boards = current_user.ownerships.includes(:lists)
-    @membership_boards = current_user.membership_boards.includes(:lists)
+    @member_boards = current_user.member_boards.includes(:lists)
     #Board.includes(:memberships).where('memberships.user_id = ? OR owner_id = ?', 1, 1).references(:memberships)
   end
 

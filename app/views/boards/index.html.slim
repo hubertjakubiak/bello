@@ -14,8 +14,7 @@ h1 Boards
         = link_to "Edit", edit_board_list_path(board, list) 
         = link_to "Delete", board_list_path(board, list), method: :delete, data: {confirm: "Are you sure?"}
     end
-= @membership_boards.inspect
-- @membership_boards.each do |board|
+- @member_boards.each do |board|
   p
     = board.title
   p
