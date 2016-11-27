@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
+  get '/signup/:invitation_token', to: 'users#new', as: :signup_with_token
   get '/signup', to: 'users#new'
   post '/users', to: 'users#create'
   root 'boards#index'
