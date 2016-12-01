@@ -2,7 +2,7 @@ h1 Edit Board
 = render 'form'
 
 = form_for @invitation , url: invitations_path do |f|
-  = f.hidden_field :board_id, value: @invitation.board_id
+  = f.hidden_field :board_id, value: @board.id
   = f.label :email
-  = f.email_field :email
+  = f.text_field :email
   = f.submit 'Send'

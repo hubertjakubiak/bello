@@ -8,4 +8,6 @@ h1 Signup!
   br
   | Password Confirmation: #{f.password_field :password_confirmation}
   br
+  = f.hidden_field :token, value: params[:invitation_token] if params[:invitation_token]
+  br
   | #{f.submit "Submit"}
