@@ -11,6 +11,4 @@ class User < ActiveRecord::Base
 
   has_many :invitations, class_name: 'Invitation', foreign_key: 'recipient_id'
   has_many :sent_invitations, class_name: 'Invitation', foreign_key: 'sender_id'
-
-  attr_accessor :token
 end
