@@ -57,6 +57,6 @@ class BoardsController < ApplicationController
 
   def assign_current_user_as_member
     invitation = Invitation.find_by(token: token)
-    invitation.board.members << current_user
+    invitation.board.members << current_user if invitation
   end
 end
