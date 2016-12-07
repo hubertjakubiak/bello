@@ -1,5 +1,7 @@
 class BoardsController < ApplicationController
-  def index
+  def index   
+    assign_current_user_as_member if token.present?
+
     @own_boards = current_user.ownerships.includes(:lists)
     @member_boards = current_user.member_boards.includes(:lists)
     #Board.includes(:memberships).where('memberships.user_id = ? OR owner_id = ?', 1, 1).references(:memberships)
@@ -47,5 +49,14 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:title)
+  end
+
+  def token
+    params[:invitation_token]
+  end
+
+  def assign_current_user_as_member
+    invitation = Invitation.find_by(token: token)
+    invitation.board.members << current_user if invitation
   end
 end
