@@ -2,9 +2,10 @@ module Api
   module V1
     class BoardsController < ApiController
       def index
-        # @boards = Board.all
-        render json: {errors: true}, status: 422
-        # render json: @boards, each_serializer: BoardSerializer
+        @boards = Board.includes(:lists)
+        
+        render json: @boards, each_serializer: BoardSerializer
+        # render json: {errors: true}, status: 422
       end
 
       def create
