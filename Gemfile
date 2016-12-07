@@ -14,6 +14,7 @@ gem 'slim'
 gem 'bcrypt', '~> 3.1.7'
 gem 'faker'
 gem "pundit"
+gem 'active_model_serializers', '0.8.3'
 
 
 group :development, :test do

@@ -12,4 +12,13 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new'
   post '/users', to: 'users#create'
   root 'boards#index'
+
+  #resource :car, controller: :session, only: [:update]
+
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      resources :boards, only: [:index, :show]
+    end
+  end
+
 end
