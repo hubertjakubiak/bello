@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
 
   has_many :invitations, class_name: 'Invitation', foreign_key: 'recipient_id'
   has_many :sent_invitations, class_name: 'Invitation', foreign_key: 'sender_id'
+
+  def self.from_token_payload(payload)
+    self.find payload["sub"]
+  end
 end

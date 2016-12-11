@@ -15,7 +15,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'faker'
 gem "pundit"
 gem 'active_model_serializers', '0.8.3'
-
+gem 'knock'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
@@ -25,7 +25,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.7'
   gem 'pry', '~> 0.10.4'
-  gem 'byebug'
 end
 
 group :test do
