@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post 'user_token' => 'user_token#create'
   resources :boards, only: [:index, :new, :create, :edit, :update, :destroy] do
     resources :lists, only: [:new, :create, :edit, :update, :destroy]
   end
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
   get '/boards/:invitation_token', to: 'boards#index', as: :accept_invitation
   get '/signup', to: 'users#new'
   post '/users', to: 'users#create'
-  root 'boards#index'
+  
 
   #resource :car, controller: :session, only: [:update]
 
@@ -20,5 +21,9 @@ Rails.application.routes.draw do
       resources :boards, only: [:index, :show]
     end
   end
+
+  mount Knock::Engine => "/knock"
+
+  root 'boards#index'
 
 end

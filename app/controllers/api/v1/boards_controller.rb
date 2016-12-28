@@ -1,6 +1,7 @@
 module Api
   module V1
     class BoardsController < ApiController
+      before_action :authenticate_user
       def index
         @boards = Board.includes(:lists)
         
